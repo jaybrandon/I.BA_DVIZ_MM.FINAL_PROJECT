@@ -1,10 +1,12 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from src.data_loader import get_hit_threshold
 
 
 def plot_dance_vs_energy(df: pd.DataFrame):
-    df_pop = df[df['track_popularity'] >= 80]
-    df_upop = df[df['track_popularity'] < 80]
+    hit_threshold = get_hit_threshold(df)
+    df_pop = df[df['track_popularity'] >= hit_threshold]
+    df_upop = df[df['track_popularity'] < hit_threshold]
 
     size = 0.5
     f, ax = plt.subplots()
