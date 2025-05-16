@@ -18,3 +18,6 @@ def load_dataframe():
                       'duration_ms', 'key', 'mode', 'loudness', 'liveness'])
     
     return df
+
+def get_hit_threshold(df, quantile=0.9):
+    return df["track_popularity"].quantile(quantile)
