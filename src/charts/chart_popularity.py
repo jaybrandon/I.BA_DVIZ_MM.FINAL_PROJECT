@@ -3,8 +3,6 @@ import seaborn as sns
 import pandas as pd
 
 def plot_popularity_distribution(df: pd.DataFrame):
-    # Stil setzen
-    sns.set_style("whitegrid")
     plt.figure(figsize=(14, 8))
 
     # Histogramm mit KDE
@@ -18,15 +16,9 @@ def plot_popularity_distribution(df: pd.DataFrame):
     # X-Achse anpassen
     plt.xticks(range(0, 101, 10), fontsize=12, color="#666")
     plt.yticks(fontsize=12, color="#666")
-
-    # Hintergrund entfernen
-    plt.gca().spines['top'].set_visible(False)
-    plt.gca().spines['right'].set_visible(False)
-    plt.gca().spines['left'].set_color("#ddd")
-    plt.gca().spines['bottom'].set_color("#ddd")
     
     # Gitterlinien anpassen
-    plt.grid(axis='y', linestyle='--', alpha=0.6, color="#ddd")
+    plt.grid(axis='y')
 
     # Layout verbessern
     plt.tight_layout()

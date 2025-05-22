@@ -6,6 +6,7 @@ from src.data_loader import load_dataframe, get_hit_threshold
 from src.charts.chart_dance_energy import plot_dance_vs_energy
 from src.charts.chart_genres import plot_top_genres
 from src.charts.chart_popularity import plot_popularity_distribution
+from src.style.style import apply_theme
 
 # --- Page Config ---
 st.set_page_config(
@@ -20,7 +21,12 @@ def load_data():
     return load_dataframe()
 
 # --- Apply Global Style ---
-plt.style.use('style/style.mplstyle')
+
+apply_theme()
+
+# --- Load Data ---
+
+df = load_data()
 
 # --- Main App ---
 st.title("Anatomy of a Hit Song: What makes music popular on Spotify?")
@@ -39,9 +45,7 @@ st.markdown("""
             While trends in music may evolve, the goal of this project is to understand the general characteristics that made songs popular at that time.
 """)
 
-df = load_data()
-
-# preview
+# --- Preview ---
 st.header("Data Preview")
 st.markdown("Here's a preview of the dataset used for this analysis, showing the attributes provided by the Spotify API.")
 st.dataframe(df.sample(5, random_state=55)[["track_name", "track_artist", "track_popularity", "playlist_genre", "danceability", "energy", "speechiness", "acousticness", "valence", "tempo"]].head())

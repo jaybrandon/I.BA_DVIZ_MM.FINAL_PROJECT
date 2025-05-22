@@ -1,8 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from src.data_loader import get_hit_threshold
-
+from src.style.style import spotify_palette
 
 def plot_dance_vs_energy(df: pd.DataFrame):
     f, ax = plt.subplots()
@@ -11,7 +10,7 @@ def plot_dance_vs_energy(df: pd.DataFrame):
         data=df[df["is_hit"] == False],
         x="danceability",
         y="energy",
-        color="blue",
+        color=spotify_palette[len(spotify_palette) - 1],
         alpha=0.25,
         s=12,
         edgecolor=None,
@@ -23,7 +22,7 @@ def plot_dance_vs_energy(df: pd.DataFrame):
         data=df[df["is_hit"] == True],
         x="danceability",
         y="energy",
-        color="orange",
+        color=spotify_palette[0],
         alpha=0.6,
         s=14,
         edgecolor=None,

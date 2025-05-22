@@ -10,7 +10,7 @@ def plot_top_genres(df):
     total_per_genre = df.groupby('playlist_genre').size().rename('total_songs')
 
     # Anzahl Hits pro Genre
-    hits_per_genre = df[df['track_popularity'] > hit_threshold].groupby('playlist_genre').size().rename('hit_songs')
+    hits_per_genre = df[df['is_hit'] == True].groupby('playlist_genre').size().rename('hit_songs')
 
     # Kombinieren und Anteil berechnen
     genre_stats = pd.concat([total_per_genre, hits_per_genre], axis=1).fillna(0)
@@ -21,7 +21,7 @@ def plot_top_genres(df):
 
     # Plot
     fig, ax = plt.subplots(figsize=(12, 8))
-    sns.barplot(x='playlist_genre', y='hit_ratio', data=genre_stats, palette='viridis', ax=ax)
+    sns.barplot(x='playlist_genre', y='hit_ratio', data=genre_stats, hue='playlist_genre', legend=False, ax=ax)
 
     ax.set_xticklabels(genre_stats['playlist_genre'], rotation=0, ha='center', fontsize=14, fontweight='bold')
     ax.set_title('Anteil erfolgreicher Songs pro Genre (Hits > {})'.format(hit_threshold), fontsize=20, fontweight='bold', pad=20)
