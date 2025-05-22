@@ -4,7 +4,7 @@ import seaborn as sns
 from src.style.style import spotify_palette
 
 def plot_dance_vs_energy(df: pd.DataFrame):
-    f, ax = plt.subplots()
+    f, ax = plt.subplots(figsize=(8, 6))
 
     sns.scatterplot(
         data=df[df["is_hit"] == False],
@@ -15,7 +15,7 @@ def plot_dance_vs_energy(df: pd.DataFrame):
         s=12,
         edgecolor=None,
         ax=ax,
-        label='False'
+        label='No Hit'
     )
 
     sns.scatterplot(
@@ -27,10 +27,11 @@ def plot_dance_vs_energy(df: pd.DataFrame):
         s=14,
         edgecolor=None,
         ax=ax,
-        label="True"
+        label="Hit"
     )
-    plt.legend(title="Hit Song")
+    
     ax.set_xlabel('Danceability')
     ax.set_ylabel('Energy')
 
+    f.tight_layout()
     return f

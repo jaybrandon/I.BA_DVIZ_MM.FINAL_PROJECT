@@ -3,24 +3,33 @@ import seaborn as sns
 import pandas as pd
 
 def plot_popularity_distribution(df: pd.DataFrame):
-    plt.figure(figsize=(14, 8))
+    # Create figure and axis
+    f, ax = plt.subplots(figsize=(14, 8))
 
-    # Histogramm mit KDE
-    sns.histplot(df['track_popularity'], bins=30, kde=False, color='royalblue', alpha=0.8, edgecolor='black', linewidth=0.5)
+    # Histogram
+    sns.histplot(
+        data=df,
+        x='track_popularity',
+        bins=30,
+        kde=False,
+        alpha=0.8,
+        edgecolor='black',
+        linewidth=0.5,
+        ax=ax
+    )
 
-    # Titel und Achsen
-    plt.title('Popularity Distribution of All Songs', fontsize=22, fontweight='bold', color="#333")
-    plt.xlabel('Popularity', fontsize=18, fontweight='bold', color="#555")
-    plt.ylabel('Frequency', fontsize=18, fontweight='bold', color="#555")
+    # Set titles and labels
+    ax.set_title('Popularity Distribution of All Songs')
+    ax.set_xlabel('Popularity')
+    ax.set_ylabel('Frequency')
 
-    # X-Achse anpassen
-    plt.xticks(range(0, 101, 10), fontsize=12, color="#666")
-    plt.yticks(fontsize=12, color="#666")
-    
-    # Gitterlinien anpassen
-    plt.grid(axis='y')
+    # Customize tick labels
+    ax.set_xticks(range(0, 101, 10))
 
-    # Layout verbessern
-    plt.tight_layout()
+    # Customize grid
+    ax.grid(axis='y')
 
-    return plt
+    # Apply tight layout
+    f.tight_layout()
+
+    return f
