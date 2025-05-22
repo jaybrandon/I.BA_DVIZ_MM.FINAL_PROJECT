@@ -19,5 +19,5 @@ def load_dataframe():
     
     return df
 
-def get_hit_threshold(df, quantile=0.9):
+def get_hit_threshold(df, quantile=0.95):
     return df["track_popularity"].quantile(quantile)
