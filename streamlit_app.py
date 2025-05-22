@@ -5,6 +5,7 @@ import seaborn as sns
 from src.data_loader import load_dataframe, get_hit_threshold
 from src.charts.chart_dance_energy import plot_dance_vs_energy
 from src.charts.chart_genres import plot_top_genres
+from src.charts.chart_popularity import plot_popularity_distribution
 
 # --- Page Config ---
 st.set_page_config(
@@ -46,13 +47,13 @@ st.markdown("Here's a preview of the dataset used for this analysis, showing the
 st.dataframe(df.sample(5, random_state=55)[["track_name", "track_artist", "track_popularity", "playlist_genre", "danceability", "energy", "speechiness", "acousticness", "valence", "tempo"]].head())
 
 # --- Charts ---
-# Popularity chart
 st.header("What is popularity on spotify?")
 st.markdown("""
             The popularity score on spotify is a score given to every song and even artists to define their
             popularity compared to others. It mainly reflects how often a song gets streamed and how recent those
             streams are.
 """)
+st.pyplot(plot_popularity_distribution(df))
 
 st.header("How to define a hit song?")
 st.markdown("To really find out what makes a hit song we first need to define what a hit song is.")
