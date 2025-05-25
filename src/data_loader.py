@@ -15,7 +15,7 @@ def load_dataframe():
 
     # Drop unnecessary columns
     df = df.drop(columns=['track_id', 'track_album_id', 'track_album_name', 'playlist_id',\
-                      'duration_ms', 'key', 'mode', 'loudness', 'liveness'])
+                      'duration_ms', 'key', 'mode', 'loudness', 'liveness', 'instrumentalness', 'acousticness'])
     
     hit_threshold = get_hit_threshold(df)
     df["is_hit"] = df["track_popularity"] >= hit_threshold
