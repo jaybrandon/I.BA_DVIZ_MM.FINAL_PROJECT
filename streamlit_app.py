@@ -6,6 +6,8 @@ from src.data_loader import load_dataframe, get_hit_threshold
 from src.charts.chart_dance_energy import plot_dance_vs_energy
 from src.charts.chart_genres import plot_top_genres
 from src.charts.chart_popularity import plot_popularity_distribution
+from src.charts.chart_general_corr import plot_general_corr
+from src.charts.chart_genre_corr import plot_genre_corr
 from src.style.style import apply_theme
 
 # --- Page Config ---
@@ -29,7 +31,7 @@ apply_theme()
 df = load_data()
 
 # --- Main App ---
-st.title("Anatomy of a Hit Song: What makes music popular on Spotify?")
+st.title("Anatomy of a Hit Song: Can Audio Features Predict Popularity")
 
 st.header("Why do some songs go viral?")
 
@@ -45,11 +47,6 @@ st.markdown("""
             While trends in music may evolve, the goal of this project is to understand the general characteristics that made songs popular at that time.
 """)
 
-# --- Preview ---
-st.header("Data Preview")
-st.markdown("Here's a preview of the dataset used for this analysis, showing the attributes provided by the Spotify API.")
-st.dataframe(df.sample(5, random_state=55)[["track_name", "track_artist", "track_popularity", "playlist_genre", "danceability", "energy", "speechiness", "acousticness", "valence", "tempo"]].head())
-
 # --- Charts ---
 st.header("What is popularity on spotify?")
 st.markdown("""
@@ -59,51 +56,24 @@ st.markdown("""
 """)
 st.pyplot(plot_popularity_distribution(df))
 
-st.header("How to define a hit song?")
-st.markdown("To really find out what makes a hit song we first need to define what a hit song is.")
 st.markdown("""
-            Traditionally, a hit song is one that achieves widespread popularity. Often reaching the top of music charts, 
-            going viral on social media, or dominating radio and streaming platforms.
-""")
-st.markdown(f"""
-            For this analysis, we define a hit song as one that falls in the **top 5% of popularity scores** in our dataset.  
-            This corresponds to a score of **≥ {int(get_hit_threshold(df))}**.
-""")
+            The vast majority of tracks hover near 0 popularity, while only a small fraction achieve truly high popularity scores.
+            This raises the question: what makes those outliers different?
+            """)
+
+st.header("Do audio features explain popularity?")
+
+st.pyplot(plot_general_corr(df))
+
+st.markdown("""
+            Across the entire dataset, no audio feature (like energy, valence, or danceability) shows meaningful linear correlation with popularity.
+            All correlation values fall in the “very weak” range, suggesting that if these features matter, the relationship isn't simple.
+            """)
 
 st.header("Are certain genres more favourable?")
 st.pyplot(plot_top_genres(df))
 
+st.pyplot(plot_genre_corr(df))
 
-st.header("Does danceability and energy increase peoples interest?")
-st.markdown("""
-            A lot of people enjoy going to concerts or clubs to dance and feel the energy of music.
-            This implies that hit songs would generally have high danceability and energy. 
-""")
-st.pyplot(plot_dance_vs_energy(df))
-st.markdown("""
-            Contrary to expectations, hit songs are not significantly more danceable or energetic than the general pool.
-            
-            The spread of hit songs is about the same as the normal spread of songs and there
-            are no obvious clusters for optimal energy or danceability.
-""")
-
-st.header("Exploring mood and popularity")
-st.markdown("""
-            The valence attribute describes the positiveness of a track. Tracks with high valence sound more positive (e.g. happy, cheerful), 
-            while tracks with low valence sound more negative (e.g. sad, depressed, angry).
-""")
-st.markdown("""
-            People tend to share and engage more with positive content both online and socially. 
-            If this trend carries into music, we would expect happier sounding songs (higher valence) to be more popular overall.
-""")
-
-st.header("Acoustic traits of a hit song")
-st.markdown("""
-            In an age of digitalization it is only expected that we also shifted to like music with electronical elements
-            rather than pure acoustic tracks.
-""")
-
-st.header("The tempo sweet spot")
-
-st.header("What really makes a hit song?")
+st.header("What really makes a popular song?")
 # Conlusion / Key takeaways
