@@ -5,7 +5,7 @@ import seaborn as sns
 def plot_general_corr(df: pd.DataFrame):
     df = df.corr(numeric_only=True).drop(['track_popularity', 'is_hit'], axis=0)['track_popularity']
 
-    f, ax = plt.subplots(figsize=(12, 8))
+    f, ax = plt.subplots(figsize=(10, 8))
 
     sns.barplot(df, ax=ax)
 
@@ -17,6 +17,6 @@ def plot_general_corr(df: pd.DataFrame):
 
     ax.set_ylabel("Correlation to popularity")
 
-    ax.legend(fontsize=16)
+    ax.legend(fontsize=14)
 
     return f

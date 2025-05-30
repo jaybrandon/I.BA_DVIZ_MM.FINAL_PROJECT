@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from src.data_loader import load_dataframe, get_hit_threshold
-from src.charts.chart_dance_energy import plot_dance_vs_energy
+from src.charts.chart_genre_attributes import plot_genre_attributes
 from src.charts.chart_genres import plot_top_genres
 from src.charts.chart_popularity import plot_popularity_distribution
 from src.charts.chart_general_corr import plot_general_corr
@@ -51,8 +51,7 @@ st.markdown("""
 st.header("What is popularity on spotify?")
 st.markdown("""
             The popularity score on spotify is a score given to every song and even artists to define their
-            popularity compared to others. It mainly reflects how often a song gets streamed and how recent those
-            streams are.
+            popularity compared to others. It mainly reflects user engagement and listening trends.
 """)
 st.pyplot(plot_popularity_distribution(df))
 
@@ -67,13 +66,39 @@ st.pyplot(plot_general_corr(df))
 
 st.markdown("""
             Across the entire dataset, no audio feature (like energy, valence, or danceability) shows meaningful linear correlation with popularity.
-            All correlation values fall in the “very weak” range, suggesting that if these features matter, the relationship isn't simple.
+            All correlation values fall in the “very weak” range, suggesting that if these features matter, the relationship isn't linear.
             """)
 
-st.header("Are certain genres more favourable?")
+st.header("Maybe it depends on the genre?")
+
 st.pyplot(plot_top_genres(df))
 
+st.markdown("""
+            Genres like Pop and Latin produce more “hits” than others like EDM or Rock.
+            This would suggest that popularity might be genre dependent. Since genres generally categorize different sounds, it
+            is also expected that these genres differ in sound features.
+            """)
+
+st.pyplot(plot_genre_attributes(df))
+
+st.markdown("""
+            These boxplots show how audio characteristics like danceability, energy, and valence vary across genres. 
+            For example, Latin music is typically more danceable and positive, while Rock tends to be higher energy but not really providing much danceability.
+            """)
+
+st.markdown("""
+            While this highlights that the genres do differ in popularity and sound profile, when we take a look
+            at the correlations within each genre, we still cant find any indication that audio features can predict popularity.
+            """)
+
 st.pyplot(plot_genre_corr(df))
+
+st.markdown("""
+            Most correlations are weak, some genres like rap and r&b show slight associations with features like danceability or valence. 
+            These differences suggest that popular songs may share certain audio features, but those features do not strongly define what makes a song a hit.
+            """)
+
+st.header("What about non linear relations?")
 
 st.header("What really makes a popular song?")
 # Conlusion / Key takeaways

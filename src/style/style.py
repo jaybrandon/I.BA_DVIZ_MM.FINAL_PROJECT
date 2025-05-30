@@ -1,6 +1,7 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import seaborn as sns
+from matplotlib.colors import LinearSegmentedColormap
 
 spotify_palette = [
     "#1ed760",
@@ -10,6 +11,11 @@ spotify_palette = [
     "#4b624d",
     "#474747"
 ]
+
+correlation_cmap = LinearSegmentedColormap.from_list(
+    "correlation",
+    [(0, "blue"), (0.5, "#ffffff"), (1, "#1ed760")]
+)
 
 def apply_theme():
     sns.set_theme(style="whitegrid")

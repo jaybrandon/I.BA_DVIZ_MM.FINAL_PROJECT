@@ -24,7 +24,7 @@ def plot_top_genres(df):
     sns.barplot(x='playlist_genre', y='hit_ratio', data=genre_stats, hue='playlist_genre', legend=False, ax=ax)
 
     ax.set_xticklabels(genre_stats['playlist_genre'], rotation=0, ha='center', fontsize=14, fontweight='bold')
-    ax.set_title('Percentage of successful songs per genre (Hits > {})'.format(hit_threshold), pad=20)
+    ax.set_title('Percentage of successful songs per genre (top 5% popularity)'.format(hit_threshold), pad=20)
     ax.set_xlabel('Genre')
     ax.set_ylabel('Percentage of successful songs (%)')
 
