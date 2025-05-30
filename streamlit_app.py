@@ -101,4 +101,13 @@ st.markdown("""
 st.header("What about non linear relations?")
 
 st.header("What really makes a popular song?")
-# Conlusion / Key takeaways
+
+st.markdown("""
+            While popular songs share some of these audio features like slightly higher danceability in the rap genre,
+            these characteristics do not strongly or consistently predict popularity.
+
+            Attempts to model popularity based on audio features result in low explanatory power. Even when separated by genre or exploring more complex patterns, 
+            audio alone does not tell the full story.
+
+            This means that other factors like artist reputation, marketing, social media and playlist placement likely play a far greater role in song popularity.
+            """)
