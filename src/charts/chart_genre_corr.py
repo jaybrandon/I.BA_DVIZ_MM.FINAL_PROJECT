@@ -8,10 +8,10 @@ def plot_genre_corr(df: pd.DataFrame):
     f, ax = plt.subplots(figsize=(12, 8))
 
     genre_corrs = (
-    df.groupby("playlist_genre")[["energy", "valence", "danceability", "tempo", "speechiness"] + ["track_popularity"]]
-      .apply(lambda g: g.corr(numeric_only=True)["track_popularity"]
-             .drop("track_popularity"))
-    )[["energy", "valence", "danceability", "tempo", "speechiness"]]
+        df.groupby("playlist_genre")[["energy", "valence", "danceability", "tempo", "speechiness", "track_popularity"]]
+          .apply(lambda g: g.corr(numeric_only=True)["track_popularity"]
+              .drop("track_popularity"))
+    )
 
     sns.heatmap(genre_corrs.T, annot=True, center=0, vmin=-1, vmax=1, cmap=correlation_cmap, ax=ax)
 
@@ -19,7 +19,5 @@ def plot_genre_corr(df: pd.DataFrame):
     ax.set_title("Correlations to popularity")
     ax.set_ylabel("Audio feature")
     ax.set_xlabel("Genre")
-
-    #ax.legend(fontsize=16)
 
     return f

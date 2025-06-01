@@ -17,6 +17,6 @@ def plot_general_corr(df: pd.DataFrame):
 
     ax.set_ylabel("Correlation to popularity")
 
-    ax.legend(fontsize=14)
+    ax.legend(fontsize=14, loc=(0.65, 0.61))
 
     return f
