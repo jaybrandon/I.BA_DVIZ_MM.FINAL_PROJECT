@@ -2,12 +2,13 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from src.data_loader import load_dataframe, get_hit_threshold
+from src.data_loader import load_dataframe, calc_r2_scores
 from src.charts.chart_genre_attributes import plot_genre_attributes
 from src.charts.chart_genres import plot_top_genres
 from src.charts.chart_popularity import plot_popularity_distribution
 from src.charts.chart_general_corr import plot_general_corr
 from src.charts.chart_genre_corr import plot_genre_corr
+from src.charts.chart_rf_regression import plot_rfr_results
 from src.style.style import apply_theme
 
 # --- Page Config ---
@@ -22,6 +23,10 @@ st.set_page_config(
 def load_data():
     return load_dataframe()
 
+@st.cache_data
+def load_r2_scores(df):
+    return calc_r2_scores(df)
+
 # --- Apply Global Style ---
 
 apply_theme()
@@ -29,6 +34,7 @@ apply_theme()
 # --- Load Data ---
 
 df = load_data()
+r2 = load_r2_scores(df)
 
 # --- Main App ---
 st.title("Anatomy of a Hit Song: Can Audio Features Predict Popularity")
@@ -87,7 +93,7 @@ st.markdown("""
             """)
 
 st.markdown("""
-            While this highlights that the genres do differ in popularity and sound profile, when we take a look
+            This highlights that the genres do differ in popularity and sound profile but when we take a look
             at the correlations within each genre, we still cant find any indication that audio features can predict popularity.
             """)
 
@@ -100,14 +106,22 @@ st.markdown("""
 
 st.header("What about non linear relations?")
 
+st.pyplot(plot_rfr_results(r2))
+
+st.markdown("""
+            Even advanced non linear models like random forests fail to predict popularity using audio features. 
+            For each genre, R² values are very low, often near or below zero. Majority are even performing worse than a
+            dummy model using averages. This confirms that the popularity cant be predicted based on these features.
+            """)
+
 st.header("What really makes a popular song?")
 
 st.markdown("""
             While popular songs share some of these audio features like slightly higher danceability in the rap genre,
-            these characteristics do not strongly or consistently predict popularity.
+            these characteristics do not predict popularity at all.
 
-            Attempts to model popularity based on audio features result in low explanatory power. Even when separated by genre or exploring more complex patterns, 
+            Attempts to model popularity based on audio features result in low predictive power. Even when separated by genre or exploring more complex patterns, 
             audio alone does not tell the full story.
 
-            This means that other factors like artist reputation, marketing, social media and playlist placement likely play a far greater role in song popularity.
+            This means that other factors like artist reputation, marketing, social media and playlist placement likely play a far greater role in song popularity on Spotify.
             """)
