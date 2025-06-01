@@ -12,6 +12,15 @@ spotify_palette = [
     "#474747"
 ]
 
+genre_colors = {
+    'pop': '#FF69B4',
+    'rap': '#FFD700',
+    'rock': '#808080',
+    'latin': '#E63946',
+    'r&b': '#6A5ACD',
+    'edm': '#00CED1'
+}
+
 correlation_cmap = LinearSegmentedColormap.from_list(
     "correlation",
     [(0, "blue"), (0.5, "#ffffff"), (1, "#1ed760")]
