@@ -104,7 +104,7 @@ st.markdown("""
             These differences suggest that popular songs may share certain audio features, but those features do not strongly define what makes a song a hit.
             """)
 
-st.header("What about non linear relations?")
+st.header("What about nonlinear relations?")
 
 st.pyplot(plot_rfr_results(r2))
 
