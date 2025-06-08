@@ -2,6 +2,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from matplotlib.colors import LinearSegmentedColormap
 
+# This file defines the general style of the plots
+
+# Default palette
 spotify_palette = [
     "#1ed760",
     "#3bb95c",
@@ -11,6 +14,7 @@ spotify_palette = [
     "#474747"
 ]
 
+# Genre palette
 genre_colors = {
     'pop': '#FF69B4',
     'rap': '#FFD700',
@@ -20,15 +24,18 @@ genre_colors = {
     'edm': '#00CED1'
 }
 
+# Cmap for heatmap
 correlation_cmap = LinearSegmentedColormap.from_list(
     "correlation",
     [(0, "blue"), (0.5, "#ffffff"), (1, "#1ed760")]
 )
 
 def apply_theme():
+    # Set general theme across all plots
     sns.set_theme(style="whitegrid")
     sns.set_palette(spotify_palette)
 
+    # Set default mpl params
     plt.rcParams.update({
         "axes.prop_cycle": plt.cycler(color=spotify_palette),
         "axes.facecolor": "#ffffff",

@@ -12,8 +12,10 @@ def plot_genre_attributes(df: pd.DataFrame):
 
     f.tight_layout()
 
+    # Blot boxplot for each attribute with all genres
     for i, attr in enumerate(attributes):
         sns.boxplot(data=df, ax=ax.flat[i], x="playlist_genre", hue='playlist_genre', palette=genre_colors, y=attr)
+        # Remove label
         ax.flat[i].set_xlabel("")
 
     return f

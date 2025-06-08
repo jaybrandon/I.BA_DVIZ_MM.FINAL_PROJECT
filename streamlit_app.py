@@ -1,7 +1,4 @@
 import streamlit as st
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 from src.data_loader import load_dataframe, calc_r2_scores
 from src.charts.chart_genre_attributes import plot_genre_attributes
 from src.charts.chart_genres import plot_top_genres
@@ -18,7 +15,7 @@ st.set_page_config(
     initial_sidebar_state="auto",
 )
 
-# --- Load Data ---
+# --- Cache Data ---
 @st.cache_data
 def load_data():
     return load_dataframe()

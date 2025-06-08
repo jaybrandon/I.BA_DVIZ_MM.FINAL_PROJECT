@@ -7,11 +7,15 @@ from src.style.style import genre_colors
 def plot_top_genres(df):
     hit_threshold = get_hit_threshold(df)
 
+    # Get the total songs per genre
     total_per_genre = df.groupby('playlist_genre').size().rename('total_songs')
 
+    # Get amount of hit songs per genre
     hits_per_genre = df[df['is_hit'] == True].groupby('playlist_genre').size().rename('hit_songs')
 
+    # Add totals to dataframe
     genre_stats = pd.concat([total_per_genre, hits_per_genre], axis=1).fillna(0)
+    # Calculate hit percentage
     genre_stats['hit_ratio'] = (genre_stats['hit_songs'] / genre_stats['total_songs']) * 100
 
     genre_stats = genre_stats.sort_values(by='hit_ratio', ascending=False).reset_index()
@@ -19,7 +23,10 @@ def plot_top_genres(df):
     f, ax = plt.subplots(figsize=(12, 8))
     sns.barplot(x='playlist_genre', y='hit_ratio', data=genre_stats, hue='playlist_genre', palette=genre_colors, legend=False, ax=ax)
 
+    # Increase ticklabel size
     ax.set_xticklabels(genre_stats['playlist_genre'], ha='center', fontsize=14)
+
+    # Set labels
     ax.set_title('Percentage of successful songs per genre (top 5% popularity)'.format(hit_threshold), pad=20)
     ax.set_xlabel('Genre')
     ax.set_ylabel('Percentage of successful songs (%)')
