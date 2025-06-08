@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from src.style.style import spotify_palette
 
 def plot_general_corr(df: pd.DataFrame):
     df = df.corr(numeric_only=True).drop(['track_popularity', 'is_hit'], axis=0)['track_popularity']
@@ -16,6 +17,11 @@ def plot_general_corr(df: pd.DataFrame):
     ax.axhspan(-0.5, -0.3, color='blue', alpha=0.05, label='Moderate Negative')
 
     ax.set_ylabel("Correlation to popularity")
+
+    last_col = len(spotify_palette) - 1
+
+    ax.annotate('Longer bars = stronger correlation\n(positive or negative)', xy=(1.5, -0.1),
+            xytext=(1.4, -0.18), arrowprops=dict(arrowstyle='->', color=spotify_palette[last_col]), fontsize=9, color=spotify_palette[last_col])
 
     ax.legend(fontsize=14, loc=(0.65, 0.61))
 
